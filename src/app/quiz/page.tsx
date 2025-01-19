@@ -1,0 +1,86 @@
+"use client";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Timer from "../components/Timer";
+import QuestionCard from "../components/QuestionCard";
+import NavigationPanel from "../components/NavigationPanel";
+
+interface Question {
+  question: string;
+  correct_answer: string;
+  incorrect_answers: string[];
+}
+
+const Quiz = () => {
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [userAnswers, setUserAnswers] = useState<string[]>([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    fetch("https://opentdb.com/api.php?amount=15")
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch questions");
+        return res.json();
+      })
+      .then((data) => {
+        setQuestions(data.results);
+        setUserAnswers(new Array(data.results.length).fill(""));
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("Failed to load questions. Please try again later.");
+      });
+  }, []);
+
+  const handleAnswer = (answer: string) => {
+    const updatedAnswers = [...userAnswers];
+    updatedAnswers[currentQuestionIndex] = answer;
+    setUserAnswers(updatedAnswers);
+  };
+
+  const submitQuiz = () => {
+    router.push(
+      `/report?userAnswers=${encodeURIComponent(
+        JSON.stringify(userAnswers)
+      )}&questions=${encodeURIComponent(JSON.stringify(questions))}`
+    );
+  };
+
+  if (questions.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        <span className="ml-4 text-lg">Loading questions...</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="p-6">
+      <div className="flex justify-between items-center mb-4">
+        <Timer duration={30 * 60} onTimeout={submitQuiz} />
+        <button
+          onClick={submitQuiz}
+          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+        >
+          Submit Quiz
+        </button>
+      </div>
+      <QuestionCard
+        question={questions[currentQuestionIndex]}
+        currentIndex={currentQuestionIndex}
+        onAnswer={handleAnswer}
+        userAnswer={userAnswers[currentQuestionIndex]}
+      />
+      <NavigationPanel
+        questions={questions}
+        currentIndex={currentQuestionIndex}
+        userAnswers={userAnswers}
+        setCurrentQuestionIndex={setCurrentQuestionIndex}
+      />
+    </div>
+  );
+};
+
+export default Quiz;
