@@ -30,7 +30,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
           <button
             key={idx}
             onClick={() => onAnswer(option)}
-            className={`md:w-[360px] w-[240px] block mb-2 px-4 py-2 rounded-xl border-2 ${
+            className={`md:w-[360px] w-[240px] block mb-2 px-4 py-2 rounded-xl border-2 hover:bg-gradient-to-r hover:from-green-900 hover:to-green-600 ${
               userAnswer === option
                 ? "bg-gradient-to-r from-green-900 to-green-600"
                 : "bg-gradient-to-r from-violet-900 to-blue-600"

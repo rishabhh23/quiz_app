@@ -1,4 +1,5 @@
 "use client";
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Timer from "../components/Timer";
@@ -18,18 +19,18 @@ const Quiz = () => {
   const router = useRouter();
 
   useEffect(() => {
-    fetch("https://opentdb.com/api.php?amount=15")
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch questions");
-        return res.json();
-      })
-      .then((data) => {
-        setQuestions(data.results);
-        setUserAnswers(new Array(data.results.length).fill(""));
+    axios
+      .get("https://opentdb.com/api.php?amount=15")
+      .then((response) => {
+        if (response.status !== 200) {
+          throw new Error("Failed to fetch questions");
+        }
+        const data = response.data.results;
+        setQuestions(data);
+        setUserAnswers(new Array(data.length).fill("")); // Initialize empty answers
       })
       .catch((error) => {
         console.error(error);
-        // alert("Failed to load questions. Please try again later.");
       });
   }, []);
 

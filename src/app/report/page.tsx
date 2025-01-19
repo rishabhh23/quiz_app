@@ -1,5 +1,4 @@
 "use client";
-
 import { useSearchParams } from "next/navigation";
 
 interface Question {
@@ -17,19 +16,14 @@ const Report = () => {
 
   const totalQuestions = parsedQuestions.length;
   const correctAnswersCount = parsedQuestions.reduce(
-    (count: number, question: Question, index: number) => {
-      if (parsedAnswers[index] === question.correct_answer) {
-        return count + 1;
-      }
-      return count;
-    },
+    (count, question, index) =>
+      parsedAnswers[index] === question.correct_answer ? count + 1 : count,
     0
   );
 
   return (
-    <div className="flex flex-col items-center p-6 mb-10 h-screen">
+    <div className="flex flex-col items-center p-6">
       <h1 className="text-5xl font-semibold">Quiz Report</h1>
-
       {totalQuestions > 0 ? (
         <p className="px-6 text-2xl font-bold my-8">
           Marks: {correctAnswersCount}/{totalQuestions}
@@ -38,7 +32,7 @@ const Report = () => {
         <p>No questions found. Please complete the quiz first.</p>
       )}
 
-      {parsedQuestions.map((question: Question, index: number) => (
+      {parsedQuestions.map((question, index) => (
         <div
           key={index}
           className="card mb-2 p-4 rounded-lg w-4/5 shadow-lg text-center"
