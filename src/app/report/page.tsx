@@ -1,5 +1,6 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+
+import { useState, useEffect } from "react";
 
 interface Question {
   question: string;
@@ -7,22 +8,31 @@ interface Question {
 }
 
 const Report = () => {
-  const searchParams = useSearchParams();
-  const userAnswers = searchParams.get("userAnswers");
-  const questions = searchParams.get("questions");
+  const [userAnswers, setUserAnswers] = useState<string[]>([]);
+  const [questions, setQuestions] = useState<Question[]>([]);
 
-  const parsedQuestions: Question[] = questions ? JSON.parse(questions) : [];
-  const parsedAnswers: string[] = userAnswers ? JSON.parse(userAnswers) : [];
+  useEffect(() => {
+    const savedUserAnswers = localStorage.getItem("userAnswers");
+    const savedQuestions = localStorage.getItem("questions");
 
-  const totalQuestions = parsedQuestions.length;
-  const correctAnswersCount = parsedQuestions.reduce(
+    if (savedUserAnswers) {
+      setUserAnswers(JSON.parse(savedUserAnswers));
+    }
+
+    if (savedQuestions) {
+      setQuestions(JSON.parse(savedQuestions));
+    }
+  }, []);
+
+  const totalQuestions = questions.length;
+  const correctAnswersCount = questions.reduce(
     (count, question, index) =>
-      parsedAnswers[index] === question.correct_answer ? count + 1 : count,
+      userAnswers[index] === question.correct_answer ? count + 1 : count,
     0
   );
 
   return (
-    <div className="flex flex-col items-center p-6">
+    <div className="flex flex-col items-center p-6 mb-10 h-screen">
       <h1 className="text-5xl font-semibold">Quiz Report</h1>
       {totalQuestions > 0 ? (
         <p className="px-6 text-2xl font-bold my-8">
@@ -32,7 +42,7 @@ const Report = () => {
         <p>No questions found. Please complete the quiz first.</p>
       )}
 
-      {parsedQuestions.map((question, index) => (
+      {questions.map((question: Question, index: number) => (
         <div
           key={index}
           className="card mb-2 p-4 rounded-lg w-4/5 shadow-lg text-center"
@@ -42,7 +52,7 @@ const Report = () => {
           </h2>
           <p className="text-sm">
             <strong className="text-blue-500">Your Answer:</strong>{" "}
-            {parsedAnswers[index] || "Not Answered"}
+            {userAnswers[index] || "Not Answered"}
           </p>
           <p className="text-sm">
             <strong className="text-green-600">Correct Answer:</strong>{" "}

@@ -41,11 +41,9 @@ const Quiz = () => {
   };
 
   const submitQuiz = () => {
-    router.push(
-      `/report?userAnswers=${encodeURIComponent(
-        JSON.stringify(userAnswers)
-      )}&questions=${encodeURIComponent(JSON.stringify(questions))}`
-    );
+    localStorage.setItem("userAnswers", JSON.stringify(userAnswers));
+    localStorage.setItem("questions", JSON.stringify(questions));
+    router.push("/report");
   };
 
   if (questions.length === 0) {
