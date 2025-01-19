@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 
+// Navigation interface to store the question, current index of the page,
+// user answers and setting the question index.
 interface NavigationPanelProps {
   questions: { question: string }[];
   currentIndex: number;
