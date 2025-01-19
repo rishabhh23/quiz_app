@@ -32,7 +32,7 @@ const Report = () => {
   );
 
   return (
-    <div className="flex flex-col items-center p-6 mb-10 h-screen">
+    <div className="flex flex-col items-center p-6 mb-10">
       <h1 className="text-5xl font-semibold">Quiz Report</h1>
       {totalQuestions > 0 ? (
         <p className="px-6 text-2xl font-bold my-8">
