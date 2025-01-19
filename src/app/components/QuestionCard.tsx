@@ -22,7 +22,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
 
   return (
     <div className="flex flex-col my-10 pb-3 w-2/3 mx-auto items-center justify-center card">
-      <h2 className="text-md md:text-xl font-semi-bold mb-10 px-5 pt-5 text-center">
+      <h2 className="text-md md:text-xl font-md mb-6 px-5 pt-5 text-center">
         {question.question}
       </h2>
       <div className="flex flex-col items-center">

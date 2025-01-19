@@ -27,7 +27,7 @@ const Quiz = () => {
         }
         const data = response.data.results;
         setQuestions(data);
-        setUserAnswers(new Array(data.length).fill("")); // Initialize empty answers
+        setUserAnswers(new Array(data.length).fill(""));
       })
       .catch((error) => {
         console.error(error);

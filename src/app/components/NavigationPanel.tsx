@@ -1,4 +1,7 @@
 "use client";
+
+import React, { useState } from "react";
+
 interface NavigationPanelProps {
   questions: { question: string }[];
   currentIndex: number;
@@ -12,15 +15,28 @@ const NavigationPanel: React.FC<NavigationPanelProps> = ({
   userAnswers,
   setCurrentQuestionIndex,
 }) => {
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  //code for animation with delay of 0.2 s
+  const handleButtonClick = (index: number) => {
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrentQuestionIndex(index);
+      setIsAnimating(false);
+    }, 200);
+  };
+
   return (
-    <div className="flex pt-5 items-center justify-center gap-2 text-gray-200">
-      {questions.map((_, index) => (
+    <div className="flex flex-wrap p-3 mt-5 gap-2 justify-center">
+      {questions.slice(0, 15).map((_, index) => (
         <button
           key={index}
-          onClick={() => setCurrentQuestionIndex(index)}
-          className={`grid-col-15 md:grid-col-5 md:grid-row-2 w-10 h-10 rounded ${
+          onClick={() => handleButtonClick(index)}
+          className={`w-10 h-10 rounded transition-transform duration-300 ${
             currentIndex === index
-              ? "bg-blue-500"
+              ? isAnimating
+                ? "bg-blue-500 scale-110"
+                : "bg-blue-500"
               : userAnswers[index]
               ? "bg-green-600"
               : "bg-violet-600"

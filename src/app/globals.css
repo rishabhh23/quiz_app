@@ -15,7 +15,7 @@ html {
 .card {
   background: #1c1f2b;
   text-align: center;
-  border-radius: 10px;
+  border-radius: 12px;
   position: relative;
 }
 
@@ -44,7 +44,7 @@ html {
   translate: -50% -50%;
   z-index: -1;
   padding: 3px;
-  border-radius: 10px;
+  border-radius: 12px;
   animation: 4s spin linear infinite;
 }
 .card::before {
