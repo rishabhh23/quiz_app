@@ -29,7 +29,7 @@ const Quiz = () => {
       })
       .catch((error) => {
         console.error(error);
-        alert("Failed to load questions. Please try again later.");
+        // alert("Failed to load questions. Please try again later.");
       });
   }, []);
 
@@ -57,12 +57,12 @@ const Quiz = () => {
   }
 
   return (
-    <div className="p-6">
+    <div className="items-center p-6 h-screen text-gray-200">
       <div className="flex justify-between items-center mb-4">
         <Timer duration={30 * 60} onTimeout={submitQuiz} />
         <button
           onClick={submitQuiz}
-          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+          className="bg-gradient-to-r from-violet-900 to-blue-600 text-white px-6 py-3 rounded-lg hover:bg-gradient-to-r hover:from-green-900 hover:to-green-600"
         >
           Submit Quiz
         </button>

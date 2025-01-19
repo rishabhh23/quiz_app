@@ -16,19 +16,21 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold mb-6">Welcome to the Quiz App</h1>
+    <div className="flex flex-col items-center justify-center h-screen">
+      <h1 className="text-4xl md:text-5xl font-bold mb-6">
+        Welcome to the Quiz App
+      </h1>
+      <h1 className="text-2xl md:text-3xl font-bold mb-6">
+        Enter Your Email to start
+      </h1>
       <input
         type="email"
         placeholder="Enter your email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="p-2 border rounded mb-4 w-80"
+        className="p-2 bg-[#e2e5e5] border rounded-lg mb-4 w-80"
       />
-      <button
-        onClick={startQuiz}
-        className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
-      >
+      <button onClick={startQuiz} className="card py-3 px-6 m-5 w-[200px]">
         Start Quiz
       </button>
     </div>

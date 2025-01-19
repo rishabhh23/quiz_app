@@ -26,7 +26,7 @@ const Timer: React.FC<TimerProps> = ({ duration, onTimeout }) => {
   };
 
   return (
-    <div className="text-lg font-semibold">
+    <div className="text-2xl text-gray-200 font-semibold">
       Time Left: {formatTime(timeLeft)}
     </div>
   );
