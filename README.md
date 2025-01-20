@@ -14,7 +14,7 @@ Approach:-
 
 4. After the submission, the user is redirected to the Report page in which displays the total marks of the user and all the questions along with the correct answer and the answer which the user has submitted.
 
-Installationg:-
+Installation:-
 
 1. Fork the repository into local machine.
 2. Run "npm install".
@@ -26,5 +26,7 @@ Assumptions Made:-
 
 Challenges faced:
 
-1. Designing the timer : used online resources to overcome
+1. Storing the state of the correct answers and the fetched API : used local storage of the web browser for this.
+2. Designing the timer : used online resources to overcome
    this.
+3. Routing logic : used react router DOM.
